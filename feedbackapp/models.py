@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Feedback(models.Model):
+    feedback_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True)
     visit_date = models.DateField()
@@ -31,3 +32,5 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f"{self.name or 'Anonymous'} ({self.visit_date})"
+
+

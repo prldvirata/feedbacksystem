@@ -17,7 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from feedbackapp.views import feedback_list
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('feedbackapp.urls')),  # include app routes
+    path('feedbacks/', feedback_list, name='feedback_list'),
+    path('', include('feedbackapp.urls')),
 ]

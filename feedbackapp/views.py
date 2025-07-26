@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from datetime import date
 from .models import Feedback
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
 
 
 def submit_feedback(request):
@@ -25,3 +28,9 @@ def submit_feedback(request):
 
 def thank_you(request):
     return render(request, 'thank_you.html')
+
+
+@login_required
+def feedback_list(request):
+    feedbacks = Feedback.objects.all().order_by('-visit_date')
+    return render(request, 'feedbackapp/feedback_list.html', {'feedbacks': feedbacks})
