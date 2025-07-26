@@ -4,6 +4,10 @@ from .models import Feedback
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView, LogoutView
+from django.db.models import Avg, Count, Q
+from django.shortcuts import render
+from .models import Feedback
+import json
 
 
 def submit_feedback(request):
@@ -38,3 +42,45 @@ def feedback_list(request):
 
 class CustomLoginView(LoginView):
     template_name = 'auth/login.html'
+
+
+def dashboard(request):
+    feedbacks = Feedback.objects.all()
+    recent_feedbacks = feedbacks.order_by('-visit_date')[:10]
+
+    total_reviews = feedbacks.count()
+    avg_rating = round(feedbacks.aggregate(Avg('overall_rating'))['overall_rating__avg'] or 0, 1)
+    recommendation_rate = round((feedbacks.filter(recommendation='Yes').count() / total_reviews) * 100, 1) if total_reviews else 0
+
+    def avg_rating_by_time(field):
+        return {
+            'Lunch': round(feedbacks.filter(visit_time='Lunch').aggregate(Avg(field))[f'{field}__avg'] or 0, 1),
+            'Dinner': round(feedbacks.filter(visit_time='Dinner').aggregate(Avg(field))[f'{field}__avg'] or 0, 1),
+        }
+
+    categories = ['food_rating', 'cleanliness_rating', 'service_rating', 'ambience_rating', 'overall_rating']
+    labels = ['Food', 'Cleanliness', 'Service', 'Ambience', 'Overall Rating']
+
+    chart_data = {
+        "labels": labels,
+        "datasets": [
+            {
+                "label": "Lunch",
+                "backgroundColor": "#FFC107",
+                "data": [avg_rating_by_time(cat)['Lunch'] for cat in categories]
+            },
+            {
+                "label": "Dinner",
+                "backgroundColor": "#8B1A1A",
+                "data": [avg_rating_by_time(cat)['Dinner'] for cat in categories]
+            }
+        ]
+    }
+
+    return render(request, 'feedbackapp/dashboard.html', {
+        'total_reviews': total_reviews,
+        'avg_rating': avg_rating,
+        'recommendation_rate': recommendation_rate,
+        'recent_feedbacks': recent_feedbacks,
+        'chart_data_json': json.dumps(chart_data)
+    })
