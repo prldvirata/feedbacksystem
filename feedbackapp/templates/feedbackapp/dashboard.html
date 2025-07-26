@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0 5%;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            height: 60px;
+        }
+        .summary-cards {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+        }
+        .card {
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            background: #f4f4f4;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        canvas {
+            max-width: 100%;
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="{% static 'persis_logo.png' %}" class="logo" alt="Persis Logo">
+    <a href="{% url 'logout' %}">Logout</a>
+</header>
+
+<h2>Feedback Reports</h2>
+
+<div class="summary-cards">
+    <div class="card">
+        <h3>Total Reviews</h3>
+        <p>{{ total_reviews }}</p>
+    </div>
+    <div class="card">
+        <h3>Average Overall Ratings</h3>
+        <p>{{ avg_rating }}</p>
+    </div>
+    <div class="card">
+        <h3>Recommendation Rate</h3>
+        <p>{{ recommendation_rate }}%</p>
+    </div>
+</div>
+
+<h3>Ratings by Category</h3>
+<canvas id="ratingsChart"></canvas>
+
+<h3>Monthly Reviews</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Food</th>
+            <th>Cleanliness</th>
+            <th>Service</th>
+            <th>Ambience</th>
+            <th>Overall</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for review in recent_feedbacks %}
+        <tr>
+            <td>{{ review.visit_date }}</td>
+            <td>{{ review.food_rating }}</td>
+            <td>{{ review.cleanliness_rating }}</td>
+            <td>{{ review.service_rating }}</td>
+            <td>{{ review.ambience_rating }}</td>
+            <td>{{ review.overall_rating }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    const chartData = {{ chart_data_json|safe }};
+    const ctx = document.getElementById('ratingsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: chartData.labels,
+            datasets: chartData.datasets
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 5
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
