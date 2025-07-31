@@ -49,8 +49,7 @@
             <tr>
                 <th class="nowrap">Date</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Time</th>
+                <th>Lunch/Dinner</th>
                 <th>Food</th>
                 <th>Cleanliness</th>
                 <th>Service</th>
@@ -63,10 +62,9 @@
         </thead>
         <tbody>
             {% for feedback in feedbacks %}
-            <tr>
+            <tr class="feedback-row">
                 <td class="nowrap">{{ feedback.visit_date }}</td>
                 <td>{{ feedback.name }}</td>
-                <td>{{ feedback.email }}</td>
                 <td>{{ feedback.visit_time }}</td>
                 <td>{{ feedback.food_rating }}</td>
                 <td>{{ feedback.cleanliness_rating }}</td>

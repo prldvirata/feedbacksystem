@@ -9,7 +9,6 @@ from django.shortcuts import render
 from .models import Feedback
 import json
 
-
 def submit_feedback(request):
     if request.method == 'POST':
         Feedback.objects.create(
@@ -84,3 +83,6 @@ def dashboard(request):
         'recent_feedbacks': recent_feedbacks,
         'chart_data_json': json.dumps(chart_data)
     })
+
+def custom_404_redirect(request, exception=None):
+    return redirect('/feedback') 

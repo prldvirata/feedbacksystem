@@ -4,6 +4,7 @@ from . import views
 from .views import CustomLoginView
 from .views import dashboard
 from django.contrib.auth import views as auth_views
+from feedbackapp.views import custom_404_redirect
 
 urlpatterns = [
     path('feedback/', views.submit_feedback, name='submit_feedback'),
@@ -13,3 +14,4 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('dashboard/', dashboard, name='dashboard'),
 ]
+handler404 = 'feedbackapp.views.custom_404_redirect' 

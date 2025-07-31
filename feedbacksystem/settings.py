@@ -76,7 +76,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'feedback_system',
         'USER': 'root',
-        'PASSWORD': 'Thisisauthentic9!',
+        'PASSWORD': 'Password!',
         'HOST': 'localhost',
         'PORT': '3306',
     }
