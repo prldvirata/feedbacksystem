@@ -13,5 +13,7 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('dashboard/', dashboard, name='dashboard'),
+    path('new-dashboard/', views.initial_dashboard_render, name='new-dashboard'),
+    path('feedbacks-api/', views.feedback_api, name='feedbacks-api'),
 ]
 handler404 = 'feedbackapp.views.custom_404_redirect' 

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from datetime import date
+from django.http import JsonResponse
+from datetime import date, datetime, timedelta
 from .models import Feedback
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -7,6 +8,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.db.models import Avg, Count, Q
 from django.shortcuts import render
 from .models import Feedback
+from django.core import serializers
 import json
 
 def submit_feedback(request):
@@ -32,7 +34,6 @@ def submit_feedback(request):
 def thank_you(request):
     return render(request, 'thank_you.html')
 
-
 @login_required
 def feedback_list(request):
     feedbacks = Feedback.objects.all().order_by('-visit_date')
@@ -42,7 +43,48 @@ def feedback_list(request):
 class CustomLoginView(LoginView):
     template_name = 'auth/login.html'
 
+@login_required
+def feedback_api(request):
+    '''
+    asynchronouly passes feedback data from date range to dashboard.
+    '''
+    start_date=request.GET.get('start_date')
+    end_date=request.GET.get('end_date')
+    if not start_date:
+        return JsonResponse({"error": "Missing start_date"}, status=400)
+    if not end_date:
+        return JsonResponse({"error": "Missing end_date"}, status=400)
+    try: 
+        print(f"\n start_date: {start_date}. \n end_date: {end_date}")
+        start_date=datetime.strptime(start_date, '%Y-%m-%d').date()
+        end_date=datetime.strptime(end_date, '%Y-%m-%d').date()
+    except ValueError: 
+        return JsonResponse({"error": "Invalid Date Format. Use YYYY-MM-D"}, status=400)
+    feedbacks_queryset = get_feedbacks_daterange(start_date, end_date)
+    feedbacks=serializers.serialize("json",feedbacks_queryset)
+    return JsonResponse(feedbacks, safe=False)
 
+
+@login_required
+def initial_dashboard_render(request):
+    '''
+    passes initial feedback data of last 30 days to dashboard.
+    '''
+    end_date=date.today()
+    start_date=end_date-timedelta(days=30)
+    feedbacks_queryset=get_feedbacks_daterange(start_date, end_date)
+    feedbacks=serializers.serialize("json",feedbacks_queryset)
+    return render(request, 'feedbackapp/dashboard.html', {
+        'feedbacks': feedbacks
+    })
+
+def get_feedbacks_daterange(start_date, end_date):
+    feedbacks_queryset = Feedback.objects.filter(visit_date__range=(start_date, end_date)).order_by('-visit_date')
+    return feedbacks_queryset
+
+
+
+@login_required
 def dashboard(request):
     feedbacks = Feedback.objects.all()
     recent_feedbacks = feedbacks.order_by('-visit_date')[:10]
