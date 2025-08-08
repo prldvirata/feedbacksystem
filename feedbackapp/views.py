@@ -118,12 +118,42 @@ def dashboard(request):
         ]
     }
 
+    overall_feedback_split = feedbacks.values('overall_rating', 'visit_time').annotate(count=Count('overall_rating'))
+    feedback_bar_labels = [str(i) for i in range(1, 6)]
+
+    lunch_data = [next(
+        (item['count'] for item in overall_feedback_split if
+         item['overall_rating'] == i and item['visit_time'] == 'Lunch'), 0
+    ) for i in range(1, 6)]
+
+    dinner_data = [next(
+        (item['count'] for item in overall_feedback_split if
+         item['overall_rating'] == i and item['visit_time'] == 'Dinner'), 0
+    ) for i in range(1, 6)]
+
+    bar_chart_data = {
+        "labels": feedback_bar_labels,
+        "datasets": [
+            {
+                "label": "Lunch",
+                "backgroundColor": "#FFC107",
+                "data": lunch_data
+            },
+            {
+                "label": "Dinner",
+                "backgroundColor": "#8B1A1A",
+                "data": dinner_data
+            }
+        ]
+    }
+
     return render(request, 'feedbackapp/dashboard.html', {
         'total_reviews': total_reviews,
         'avg_rating': avg_rating,
         'recommendation_rate': recommendation_rate,
         'recent_feedbacks': recent_feedbacks,
-        'chart_data_json': json.dumps(chart_data)
+        'chart_data_json': json.dumps(chart_data),
+        'bar_chart_data_json': json.dumps(bar_chart_data)
     })
 
 def custom_404_redirect(request, exception=None):
