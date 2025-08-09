@@ -1,0 +1,300 @@
+<div class="card mt-4 mb-4">
+  <div class="card-header" id="filtersHeader">
+    <h3 class="mb-0">
+      <button
+        class="btn btn-link w-100 text-start text-decoration-none"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#filtersCollapse"
+        aria-expanded="false"
+        aria-controls="filtersCollapse" >
+        Custom Filters
+        <span class="float-end"></span>
+      </button>
+    </h3>
+  </div>
+
+  <div id="filtersCollapse" class="collapse">
+    <div class="card-body">
+      <div class="row g-2 justify-content-center">
+        {# Filter Column 1: Food Rating #}
+        <div class="col-6 col-md-auto">
+          <h5>Food Rating</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="5"
+              id="foodRating5"
+              checked
+            />
+            <label class="form-check-label" for="foodRating5">⋆⋆⋆⋆⋆</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="4"
+              id="foodRating4"
+            />
+            <label class="form-check-label" for="foodRating4">⋆⋆⋆⋆</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="3"
+              id="foodRating3"
+              checked
+            />
+            <label class="form-check-label" for="foodRating3">⋆⋆⋆</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="2"
+              id="foodRating2"
+              checked
+            />
+            <label class="form-check-label" for="foodRating2">⋆⋆</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="1"
+              id="foodRating1"
+              checked
+            />
+            <label class="form-check-label" for="foodRating1">⋆</label>
+          </div>
+        </div>
+
+        {# Filter Column 2: Cleanliness Rating #}
+        <div class="col-6 col-md-auto">
+          <h5>Cleanliness Rating</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="5"
+              id="cleanlinessRating5"
+              checked
+            />
+            <label class="form-check-label" for="cleanlinessRating5"
+              >⋆⋆⋆⋆⋆</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="4"
+              id="cleanlinessRating4"
+              checked
+            />
+            <label class="form-check-label" for="cleanlinessRating4"
+              >⋆⋆⋆⋆</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="3"
+              id="cleanlinessRating3"
+              checked
+            />
+            <label class="form-check-label" for="cleanlinessRating3"
+              >⋆⋆⋆</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="2"
+              id="cleanlinessRating2"
+              checked
+            />
+            <label class="form-check-label" for="cleanlinessRating2">⋆⋆</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="1"
+              id="cleanlinessRating1"
+              checked
+            />
+            <label class="form-check-label" for="cleanlinessRating1">⋆</label>
+          </div>
+        </div>
+
+        {# Filter Column 3: Service Rating #}
+        <div class="col-6 col-md-auto">
+          <h5>Service Rating</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="5"
+              id="serviceRating5"
+              checked
+            />
+            <label class="form-check-label" for="serviceRating5"
+              >⋆⋆⋆⋆⋆</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="4"
+              id="serviceRating4"
+              checked
+            />
+            <label class="form-check-label" for="serviceRating4"
+              >⋆⋆⋆⋆</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="3"
+              id="serviceRating3"
+              checked
+            />
+            <label class="form-check-label" for="serviceRating3"
+              >⋆⋆⋆</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="2"
+              id="serviceRating2"
+              checked
+            />
+            <label class="form-check-label" for="serviceRating2">⋆⋆</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="1"
+              id="serviceRating1"
+              checked
+            />
+            <label class="form-check-label" for="serviceRating1">⋆</label>
+          </div>
+        </div>
+
+        {# Filter Column 4: Ambience Rating #}
+        <div class="col-6 col-md-auto">
+          <h5>Ambience Rating</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="5"
+              id="ambienceRating5"
+              checked
+            />
+            <label class="form-check-label" for="ambienceRating5"
+              >⋆⋆⋆⋆⋆</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="4"
+              id="ambienceRating4"
+              checked
+            />
+            <label class="form-check-label" for="ambienceRating4"
+              >⋆⋆⋆⋆</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="3"
+              id="ambienceRating3"
+              checked
+            />
+            <label class="form-check-label" for="ambienceRating3"
+              >⋆⋆⋆</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="2"
+              id="ambienceRating2"
+              checked
+            />
+            <label class="form-check-label" for="ambienceRating2">⋆⋆</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input rating-filter"
+              type="checkbox"
+              value="1"
+              id="ambienceRating1"
+              checked
+            />
+            <label class="form-check-label" for="ambienceRating1">⋆</label>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-auto">
+          <h5>Categories</h5>
+          <div id="filterContainer" class="d-flex flex-wrap gap-2">
+            <span id="#lunch" class="badge rounded-pill filter-pill active"
+              >Lunch</span
+            >
+            <span id="#dinner" class="badge rounded-pill filter-pill active"
+              >Dinner</span
+            >
+            <span
+              id="#suggestions"
+              class="badge rounded-pill filter-pill active"
+              >Suggestions</span
+            >
+            <span
+              id="#no_suggestions"
+              class="badge rounded-pill filter-pill active"
+              >No Suggestions</span
+            >
+            <span id="#feedback" class="badge rounded-pill filter-pill active"
+              >Feedback</span
+            >
+            <span id="#no_feedback" class="badge rounded-pill filter-pill active"
+              >No Feedback</span
+            >
+            <span id="#recommend" class="badge rounded-pill filter-pill active"
+              >Recommend</span
+            >
+            <span
+              id="#not_recommend"
+              class="badge rounded-pill filter-pill active"
+              >Wouldn't Recommend</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="d-grid gap-2 mt-3">
+        <button id="applyAllFilters" class="btn btn-primary" onclick="applyFilters()">
+          Apply All Filters
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

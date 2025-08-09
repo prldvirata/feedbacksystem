@@ -56,3 +56,23 @@ th {
 .feedback-row:hover{
   background: #dddddd;
 }
+/*PILL STYLING*/
+.filter-pill {
+  cursor: pointer;
+  background-color: white;      
+  color: maroon !important;
+  border: 2px solid maroon;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-pill:hover {
+  background-color: #dddddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.filter-pill.active {
+  background-color: maroon;
+  color: white !important;
+  font-weight: 600;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
