@@ -60,7 +60,7 @@ function populateDataTable(feedbacks){
         $(row).attr('data-bs-toggle', 'modal');
         $(row).attr('data-bs-target', '#feedbackModal');
         $(row).addClass('feedback-row');
-        $(row).data('reviewData', data);
+        $(row).data('feedbackData', data);
       }
     });  
   }

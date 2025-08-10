@@ -57,7 +57,51 @@
 {% include "./filtering.html" %}
 <table id="feedback_table">
 </table>
-
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <h5>Ratings</h5>
+          <div>
+            <p class="lead"><strong id="overallRating"></strong></p>
+          </div>
+          <div>
+            <p><strong id="foodRating"></strong></p>
+          </div>
+          <div>
+            <p><strong id="cleanlinessRating"></strong></p>
+          </div>
+          <div>
+            <p><strong id="serviceRating"></strong></p>
+          </div>
+          <div>
+            <p><strong id="ambienceRating"></strong></p>
+          </div>
+          <div id="commentSection">
+            <hr>
+            <h5>Comment:</h5>
+            <p id="feedbackComment"></p>
+          </div>
+          <div id="suggestionsSection">
+            <hr>
+            <h5>Suggestions:</h5>
+            <p id="feedbackSuggestions">{{ review.suggestions|linebreaksbr }}</p>
+          </div>
+          <hr>
+          <p id="recommendation">
+            <!--
+            <strong class="text-success">Would Recommend</strong>
+            <strong class="text-danger">Would NOT Recommend</strong>
+            --!>
+          </p>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- TODO: chart data needs to be renered on client side, and based on data in table. 
        this means the script tags need to move to ui_interactions where the chart is rendered.
 
