@@ -76,3 +76,23 @@ th {
   font-weight: 600;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+.switch-pill {
+  cursor: pointer;
+  background-color: yellow;
+  color: maroon !important;
+  border: 2px solid maroon;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.switch-pill:hover {
+  background-color: yellow;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.switch-pill.active {
+  background-color: maroon;
+  color: white !important;
+  font-weight: 600;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}

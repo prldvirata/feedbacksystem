@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block header_edits %}
-<script src="{% static '/feedbackapp/timeframe_handler.js' %}"></script>
-<script src="{% static '/feedbackapp/ui_interactions.js' %}"></script>
+<script type="module" src="{% static '/feedbackapp/timeframe_handler.js' %}"></script>
+<script type="module" src="{% static '/feedbackapp/filtering.js' %}"></script>
+<script type="module" src="{% static '/feedbackapp/ui_interactions.js' %}"></script>
 {% endblock %}
 {% block content %}
 <!-- dropdown date range picker -->
