@@ -1,8 +1,3 @@
-import {
-  initDashboard,
-  feedback_table,
-} from './timeframe_handler.js';
-import { filters, applyFilters } from './filtering.js';
 function toggleDropdown() {
   const dropdown = document.getElementById("dateDropdown");
   dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
@@ -20,12 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
   setup()
 })
 function setup() {
+  document.querySelectorAll(".btn-outline-primary").forEach((button) => {
+    button.addEventListener("click", () => {
+      button.toggle("active");
+    });
+  });
   document.querySelectorAll('.filter-pill').forEach((pill)=>{
     pill.addEventListener("click",()=>{
       pill.classList.toggle("active")
       console.log(pill.classList)
     })
-    
+    console.log("hello")
   })
   document.getElementById('feedbackModal').addEventListener('show.bs.modal', function (event) {
     const clickedElement = event.relatedTarget//specific cell
@@ -36,12 +36,13 @@ function setup() {
     }
     const feedbackModal = document.getElementById('feedbackModal')
     populateModal(feedbackModal, feedbackData)
-    applyFilters(feedback_table)
   })
-  document.getElementById('applyFilters').addEventListener("click",()=>{
-      applyFilters(feedback_table)
-    })
+
 }
+function applyFilters(){
+    
+}
+function init_modalListener(){}
 function populateModal(feedbackModal, feedbackData) {
   const stars = score => '★'.repeat(score) + '☆'.repeat(5 - score);
   feedbackModal.querySelector('.modal-title').textContent=`${feedbackData.name || 'Anonymous'}'s Review`
