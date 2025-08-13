@@ -55,29 +55,34 @@ def feedback_api(request):
     if not end_date:
         return JsonResponse({"error": "Missing end_date"}, status=400)
     try: 
+        print(f"\n start_date: {start_date}. \n end_date: {end_date}")
         start_date=datetime.strptime(start_date, '%Y-%m-%d').date()
         end_date=datetime.strptime(end_date, '%Y-%m-%d').date()
     except ValueError: 
-        return JsonResponse({"error": "Invalid Date Format. Use YYYY-MM-DD"}, status=400)
-    feedbacks_queryset = Feedback.objects.filter(visit_date__range=(start_date, end_date)).order_by('-visit_date')
-    feedbacks=[]
-    for feedback in feedbacks_queryset: 
-        feedbacks.append({
-            'id': feedback.pk, 
-            'name': feedback.name,
-            'email': feedback.email,
-            'visit_date': feedback.visit_date.isoformat(),
-            'visit_time': feedback.visit_time,
-            'food_rating': feedback.food_rating,
-            'cleanliness_rating': feedback.cleanliness_rating,
-            'ambience_rating': feedback.ambience_rating,
-            'service_rating': feedback.service_rating,
-            'overall_rating': feedback.overall_rating,
-            'comment': feedback.comment,
-            'suggestions': feedback.suggestions,
-            'recommendation': feedback.recommendation,
-        })
+        return JsonResponse({"error": "Invalid Date Format. Use YYYY-MM-D"}, status=400)
+    feedbacks_queryset = get_feedbacks_daterange(start_date, end_date)
+    feedbacks=serializers.serialize("json",feedbacks_queryset)
     return JsonResponse(feedbacks, safe=False)
+
+
+@login_required
+def initial_dashboard_render(request):
+    '''
+    passes initial feedback data of last 30 days to dashboard.
+    '''
+    end_date=date.today()
+    start_date=end_date-timedelta(days=30)
+    feedbacks_queryset=get_feedbacks_daterange(start_date, end_date)
+    feedbacks=serializers.serialize("json",feedbacks_queryset)
+    return render(request, 'feedbackapp/dashboard.html', {
+        'feedbacks': feedbacks
+    })
+
+def get_feedbacks_daterange(start_date, end_date):
+    feedbacks_queryset = Feedback.objects.filter(visit_date__range=(start_date, end_date)).order_by('-visit_date')
+    return feedbacks_queryset
+
+
 
 @login_required
 def dashboard(request):
