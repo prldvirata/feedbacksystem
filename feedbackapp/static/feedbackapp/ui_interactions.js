@@ -1,6 +1,7 @@
 import {
   initDashboard,
   feedback_table,
+  updateDashboardAnalysis,
 } from './timeframe_handler.js';
 import { filters, applyFilters } from './filtering.js';
 function toggleDropdown() {
@@ -24,6 +25,30 @@ function setup() {
     pill.addEventListener("click",()=>{
       pill.classList.toggle("active")
       console.log(pill.classList)
+    })
+    
+  })
+  document.querySelectorAll('.switch-pill').forEach((pill)=>{
+    pill.addEventListener("click",()=>{
+      pill.classList.toggle("active")
+      if (pill.classList.contains("active")){
+        pill.textContent="remove filters"
+      } else {
+        pill.textContent="apply filter"
+      } 
+      updateDashboardAnalysis()
+    })
+    
+  })
+  document.querySelectorAll('.chart-switch-pill').forEach((pill)=>{
+    pill.addEventListener("click",()=>{
+      pill.classList.toggle("active")
+      if (pill.classList.contains("active")){
+        pill.textContent="show bipartite"
+      } else {
+        pill.textContent="show overall"
+      } 
+      updateDashboardAnalysis()
     })
     
   })

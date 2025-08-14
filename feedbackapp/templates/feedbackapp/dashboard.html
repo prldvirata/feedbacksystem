@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
 <!-- dropdown date range picker -->
-<h2 class="d-inline">feedback reports</h2>
+<h2 class="d-inline">Feedback Reports</h2>
 <div class="d-inline float-end">
   <button class="btn btn-outline-primary dropdown-toggle" type="button" id="daterangedropdown" data-bs-toggle="dropdown" aria-expanded="false">
     select date range
@@ -29,15 +29,21 @@
 <div class="summary-cards">
   <div class="card">
     <h3>Total Reviews</h3>
-    <p id="total_reviews"></p>
+    <h4 id="total_reviews"></h4>
+    <h6 id="total_reviews_bipart"></h6>
+    <span id="total_reviews_pill" class="badge rounded-pill switch-pill" >apply filter</span>
   </div>
   <div class="card">
     <h3>Average Overall Ratings</h3>
-    <p id="avg_rating"></p>
+    <h4 id="average_overall_rating"></h4>
+    <h6 id="average_overall_rating_bipart"></h6>
+    <span id="average_overall_rating_pill" class="badge rounded-pill switch-pill" >apply filter</span>
   </div>
   <div class="card">
     <h3>Recommendation Rate</h3>
-    <p id="recommendation_rate"></p>
+    <h4 id="recommendation_rate"></h4>
+    <h6 id="recommendation_rate_bipart"></h6>
+    <span id="recommendation_rate_pill" class="badge rounded-pill switch-pill" >apply filter</span>
   </div>
 </div>
 
@@ -45,15 +51,23 @@
   <div class="row">
     <div class="col">
       <h3>Ratings Summary</h3>
+      <div class="justify-content-center d-flex flex-wrap gap-2">
+        <span id="ratings_chart_bipart_pill" class="badge rounded-pill chart-switch-pill" >show bipartite</span>
+        <span id="ratings_chart_filter_pill" class="badge rounded-pill switch-pill" >apply filter</span>
+      </div>
       <canvas id="ratings_chart"></canvas>
     </div>
     <div class="col">
       <h3>Performance Report</h3>
-      <canvas id="category_chart"></canvas>
+      <div class="justify-content-center d-flex flex-wrap gap-2">
+        <span id="performance_chart_bipart_pill" class="badge rounded-pill chart-switch-pill active" >show overall</span>
+        <span id="performance_chart_filter_pill" class="badge rounded-pill switch-pill" >apply filter</span>
+      </div>
+      <canvas id="performance_chart"></canvas>
     </div>
   </div>
 </div>
-
+<br>
 <h3>Monthly Reviews</h3>
 {% include "./filtering.html" %}
 <table id="feedback_table">
@@ -103,56 +117,6 @@
     </div>
   </div>
 </div>
-<!-- TODO: chart data needs to be renered on client side, and based on data in table. 
-       this means the script tags need to move to ui_interactions where the chart is rendered.
-
-<script>
-  const chartData = {{ chart_data_json|safe }};
-  const ctx = document.getElementById('ratingsChart').getContext('2d');
-  new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: chartData.labels,
-          datasets: chartData.datasets
-      },
-      options: {
-          responsive: true,
-          scales: {
-              y: {
-                  beginAtZero: true,
-                  max: 5
-              }
-          }
-      }
-  });
-  new DataTable('#reviewTable');
-</script>
-
-<script>
-  const countData = {{ bar_chart_data_json|safe }};
-  const ctx2 = document.getElementById('ratingCountChart').getContext('2d');
-  new Chart(ctx2, {
-      type: 'bar',
-      data: {
-          labels: countData.labels,
-          datasets: countData.datasets
-      },
-      options: {
-          responsive: true,
-          scales: {
-              y: {
-                  beginAtZero: true,
-                  precision: 0
-              }
-          }
-      }
-  });
-</script>
-
-
-</body>
-</html>
---!>
 {% include "./feedback_modals.html" %}
 {% endblock %}
 
