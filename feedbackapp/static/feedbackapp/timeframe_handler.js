@@ -1,25 +1,55 @@
-let feedback_table;
-async function initDashboard() {
+export let feedback_table;
+let feedbacks;
+export async function initDashboard() {
   // NOTE: function initializes the dashboard with the default timeline by reaching out 
   // to the API then re-rendering with data
-  default_start = new Date();
-  default_end= new Date();
+  const default_start = new Date();
+  let default_end= new Date();
   default_start.setDate(default_end.getDate()-300);
-  start_date_str=default_start.toISOString().slice(0,10);
-  end_date_str=default_end.toISOString().slice(0,10);
+  const start_date_str=default_start.toISOString().slice(0,10);
+  const end_date_str=default_end.toISOString().slice(0,10);
   feedbacks=await fetchData(start_date_str,end_date_str)
   console.log(feedbacks)
   populateDataTable(feedbacks)
   updateDashboardAnalysis()
 }
-function updateDashboardAnalysis(data) {
+export function updateDashboardAnalysis() {
   // NOTE: function updates dashboard charts & summary cards by calling relevant functions 
-
-  
-  
-  // TODO: write the function?
-
+  if (!feedback_table) {
+    alert('DataTable not initialized yet for analysis.');
+    return;
+  }
+  const filteredData = feedback_table.rows({search: 'applied'}).data().toArray()
+  const unfilteredData = feedback_table.rows().data().toArray()
+  const filteredData_analysis = analyze(filteredData)
+  const unfilteredData_analysis = analyze(unfilteredData)
+  updateRatingsChart()
+  updateCategoriesChart()
 }
+function analyze(data) {
+  const result = {
+    lunch: {
+      total_reviews: 0,
+      overall_ratings_count: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+      recommended_count: 0,
+      total_overall_rating: 0,
+      total_cleanliness_rating: 0,
+      total_service_rating: 0,
+      total_food_rating: 0,
+      total_ambience_rating: 0,
+    },
+    dinner: {
+      total_reviews: 0,
+      overall_ratings_count: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+      recommended_count: 0,
+      total_overall_rating: 0,
+      total_cleanliness_rating: 0,
+      total_service_rating: 0,
+      total_food_rating: 0,
+      total_ambience_rating: 0,
+    },
+  }
+
 async function renderDashboard(){
 
   // NOTE: function updates dashboard charts & summary cards by calling relevant functions 
@@ -49,12 +79,16 @@ function populateDataTable(feedbacks){
         { data: 'id', title: 'ID', visible: false },
         { data: 'name', title: 'Name', defaultContent: 'Anonymous' },
         { data: 'visit_date', title: 'Visit Date' },
-        { data: 'food_rating', title: 'Food' },
-        { data: 'cleanliness_rating', title: 'Cleanliness' },
-        { data: 'service_rating', title: 'Service' },
-        { data: 'ambience_rating', title: 'Ambience' },
-        { data: 'overall_rating', title: 'Overall' },
-        { data: 'recommendation', title: 'Recommend?' }
+        { data: 'food_rating', title: 'Food' },//0+3
+        { data: 'cleanliness_rating', title: 'Cleanliness' },//1+3
+        { data: 'service_rating', title: 'Service' },//2+3
+        { data: 'ambience_rating', title: 'Ambience' },//3+3
+        { data: 'overall_rating', title: 'Overall' },//4+3
+        { data: 'recommendation', title: 'Recommend?' },
+        { data: 'suggestions', title: 'suggestions' , visible: false},
+        { data: 'comment', title: 'comment' , visible: false},
+        { data: 'visit_time', title: 'visit_time' , visible: false},
+        { data: 'email', title: 'email' , visible: false},
       ],
       createdRow: function(row, data, dataIndex) {
         $(row).attr('data-bs-toggle', 'modal');
