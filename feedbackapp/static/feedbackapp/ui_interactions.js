@@ -2,6 +2,7 @@ import {
   initDashboard,
   feedback_table,
   updateDashboardAnalysis,
+  renderDashboard
 } from './timeframe_handler.js';
 import { filters, applyFilters } from './filtering.js';
 function toggleDropdown() {
@@ -52,6 +53,9 @@ function setup() {
     })
     
   })
+  document.getElementById('date_range_button').addEventListener('click', () => {
+    renderDashboard();
+  });
   document.getElementById('feedbackModal').addEventListener('show.bs.modal', function (event) {
     const clickedElement = event.relatedTarget//specific cell
     const row = feedback_table.row(clickedElement).node()//tr element

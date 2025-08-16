@@ -5,7 +5,7 @@ export async function initDashboard() {
   // to the API then re-rendering with data
   const default_start = new Date();
   let default_end= new Date();
-  default_start.setDate(default_end.getDate()-300);
+  default_start.setDate(default_end.getDate()-30);
   const start_date_str=default_start.toISOString().slice(0,10);
   const end_date_str=default_end.toISOString().slice(0,10);
   feedbacks=await fetchData(start_date_str,end_date_str)
@@ -172,7 +172,7 @@ function analyze(data) {
   return result;
 }
 
-async function renderDashboard(){
+export async function renderDashboard(){
 
   // NOTE: function updates dashboard charts & summary cards by calling relevant functions 
 
