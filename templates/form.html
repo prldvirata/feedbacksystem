@@ -146,10 +146,8 @@
 
   <label for="date">Date of Visit</label>
   <input type="date" id="date" name="visit_date">
-  <script>
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('date').value = today;
-  </script>
+  
+  <span id="dateError" class="error-message"></span>
 
   <label for="visit_time">Time of Visit</label>
 <select id="visit_time" name="visit_time" required>
@@ -166,6 +164,7 @@
     <input type="radio" id="food2" name="food_rating" value="2"><label for="food2">★</label>
     <input type="radio" id="food1" name="food_rating" value="1"><label for="food1">★</label>
   </div>
+  <span id="food_ratingError" class="error-message"></span>
 
   <label>Cleanliness</label>
   <div class="star-rating">
@@ -175,6 +174,7 @@
     <input type="radio" id="clean2" name="cleanliness_rating" value="2"><label for="clean2">★</label>
     <input type="radio" id="clean1" name="cleanliness_rating" value="1"><label for="clean1">★</label>
   </div>
+  <span id="cleanliness_ratingError" class="error-message"></span>
 
   <label>Service</label>
   <div class="star-rating">
@@ -184,6 +184,7 @@
     <input type="radio" id="service2" name="service_rating" value="2"><label for="service2">★</label>
     <input type="radio" id="service1" name="service_rating" value="1"><label for="service1">★</label>
   </div>
+  <span id="service_ratingError" class="error-message"></span>
 
   <label>Ambience</label>
   <div class="star-rating">
@@ -193,6 +194,7 @@
     <input type="radio" id="ambience2" name="ambience_rating" value="2"><label for="ambience2">★</label>
     <input type="radio" id="ambience1" name="ambience_rating" value="1"><label for="ambience1">★</label>
   </div>
+  <span id="ambience_ratingError" class="error-message"></span>
 
   <label>Overall Rating</label>
   <div class="star-rating">
@@ -202,6 +204,7 @@
     <input type="radio" id="overall2" name="overall_rating" value="2"><label for="overall2">★</label>
     <input type="radio" id="overall1" name="overall_rating" value="1"><label for="overall1">★</label>
   </div>
+  <span id="overall_ratingError" class="error-message"></span>
 
   <label for="comment">Additional Comments</label>
   <textarea id="comment" name="comment"></textarea>
@@ -227,6 +230,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const feedbackform = document.getElementById('feedbackform')
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date').value = today;
     feedbackform.addEventListener("submit", function(event) {
       let isValid = true;
       document.querySelectorAll('.error-message').forEach(span=>{span.textContent='';})
@@ -235,12 +240,6 @@
 
       if (!visitDate.value){
         document.getElementById('dateError').textContent = 'Please select a date of visit.';
-        isValid=false;
-      }
-
-      const visitTime
-      if (!visitTime.value){
-        document.getElementById('visitTimeError').textContent = 'Please select a service.';
         isValid=false;
       }
 
