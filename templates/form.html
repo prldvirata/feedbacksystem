@@ -122,6 +122,12 @@
         box-sizing: border-box;
         font-size: 16px;
     }
+    .error-message {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 5px;
+        display: block; /* Ensures it takes up its own line */
+    }
   </style>
 </head>
 <body>
@@ -129,7 +135,7 @@
   <img src="{% static 'feedbackapp/PersisLogo1.png' %}" alt="Persis Logo" style="max-width: 100%; height: auto;">
 
 
- <form method="POST">
+ <form id="feedbackform" method="POST">
   {% csrf_token %}
 
   <label for="name">Name (optional)</label>
@@ -218,6 +224,53 @@
 
   <button type="submit">SUBMIT YOUR RESPONSE</button>
 </form>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const feedbackform = document.getElementById('feedbackform')
+    feedbackform.addEventListener("submit", function(event) {
+      let isValid = true;
+      document.querySelectorAll('.error-message').forEach(span=>{span.textContent='';})
+      const visitDate = document.getElementById('date');
+      //checking that stuff has stuff in it.
 
+      if (!visitDate.value){
+        document.getElementById('dateError').textContent = 'Please select a date of visit.';
+        isValid=false;
+      }
+
+      const visitTime
+      if (!visitTime.value){
+        document.getElementById('visitTimeError').textContent = 'Please select a service.';
+        isValid=false;
+      }
+
+      const email = document.getElementById('email');
+      if (email.value && !/\S+@\S+\.\S+/.test(email.value)) {
+        document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+        isValid = false;
+
+      }
+
+      const ratings = [
+        'food_rating',
+        'cleanliness_rating',
+        'service_rating',
+        'overall_rating',
+        'ambience_rating',
+      ]
+      ratings.forEach(ratingName=>{
+        const radios = document.querySelectorAll(`input[name="${ratingName}"]`)
+        if (!(Array.from(radios).some(radio=>radio.checked))){
+          document.getElementById(`${ratingName}Error`).textContent='Please provide a rating'
+          isValid=false;
+        }
+      })
+
+      if (!isValid){
+        event.preventDefault();//no form submission if validation fails.
+      }
+    })
+  })
+</script>
 </body>
 </html>
