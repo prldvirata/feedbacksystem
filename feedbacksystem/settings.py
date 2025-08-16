@@ -74,10 +74,10 @@ WSGI_APPLICATION = 'feedbacksystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'feedback_system',
-        'USER': 'root',
-        'PASSWORD': 'Password!',
-        'HOST': 'localhost',
+        'NAME': 'persisbiryani$default',
+        'USER': 'persisbiryani',
+        'PASSWORD': 'bestpwever',
+        'HOST': 'persisbiryani.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }
